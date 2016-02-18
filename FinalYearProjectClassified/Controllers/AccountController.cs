@@ -142,6 +142,8 @@ namespace FinalYearProjectClassified.Controllers
             return View();
         }
 
+        //another test change
+
         //
         // POST: /Account/Register
         [HttpPost]
