@@ -1,0 +1,52 @@
+﻿@model FinalYearProjectClassified.Models.MyAccount.IndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>My Ads</h2>
+
+<h3>@Model.User.FullName</h3>
+
+@if (Model.Ads.Count == 0)
+{
+    <p>You have no ads.</p>
+    <a href="/myaccount/createad" class="btn btn-primary">Create an Ad</a>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Created on</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var ad in Model.Ads)
+            {
+                <tr>
+                    <td>@ad.Id</td>
+                    <td>@ad.Name</td>
+                    <td>@String.Format("{0:C2}", ad.Price)</td>
+                    <td>@ad.CreatedOn.ToLongDateString() @@ @ad.CreatedOn.ToShortTimeString()</td>
+                    <td>
+                        <a href="@Url.Action("DetailsAd", new { id = ad.Id })" class="btn btn-warning">Details</a>
+                        
+                        @using (Html.BeginForm("DisableAd", "MyAccount", new { id = ad.Id }, FormMethod.Post))
+                        {
+                            <input type="submit" value="Disable" class="btn btn-danger" onclick="return confirm('Are you sure you want to disable this ad?')" />
+                        } 
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a href="@Url.Action("EditAd")" class="btn btn-primary">Create Ad</a>
+}
+

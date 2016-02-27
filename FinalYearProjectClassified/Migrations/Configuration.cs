@@ -9,7 +9,7 @@ namespace FinalYearProjectClassified.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(FinalYearProjectClassified.Models.ApplicationDbContext context)

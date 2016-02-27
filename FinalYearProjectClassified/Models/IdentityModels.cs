@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FinalYearProjectClassified.Models
 {
@@ -13,6 +14,13 @@ namespace FinalYearProjectClassified.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        [NotMapped]
+        public string FullName
+        {
+            get { return string.Format("{0} {1}", this.FirstName, this.LastName); }
+        }
+    
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -20,19 +28,6 @@ namespace FinalYearProjectClassified.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
-        }
-    }
-
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
         }
     }
 }

@@ -7,13 +7,13 @@ namespace FinalYearProjectClassified.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class addpropertiestouserclass : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addpropertiestouserclass));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201602181651303_add properties to user class"; }
+            get { return "201602241836153_init"; }
         }
         
         string IMigrationMetadata.Source
