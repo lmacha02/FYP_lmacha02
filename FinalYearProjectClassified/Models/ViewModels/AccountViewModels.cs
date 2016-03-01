@@ -53,6 +53,11 @@ namespace FinalYearProjectClassified.Models
         [EmailAddress]
         public string Email { get; set; }
 
+
+        //[Required]
+        //[Display(Name = "User Name")]
+        //public string UserName { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
@@ -72,6 +77,9 @@ namespace FinalYearProjectClassified.Models
         [Display(Name = "Last name")]
         public string LastName { get; set; }
 
+        //[Required]
+        //[Display(Name = "User Name")]
+        //public string UserName { get; set; }
 
         [Required]
         [EmailAddress]

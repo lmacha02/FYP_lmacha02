@@ -47,13 +47,18 @@
         </dt>
 
         <dd>
-            @Model.CreatedOn
+            @Model.CreatedOn.ToLongDateString() (@Model.CreatedOn.ToShortTimeString())
         </dd>
 
     </dl>
 </div>
 <div>
     <a href="@Url.Action("EditAd", new { id = Model.AdId })" class="btn btn-warning">Edit</a>
-    
-    @Html.ActionLink("Back to List", "Index")
+
+    @using (Html.BeginForm("DisableAd", "MyAccount", new { id = Model.AdId }, FormMethod.Post))
+    {
+        <input type="submit" value="Disable" class="btn btn-danger" onclick="return confirm('Are you sure you want to disable this ad?')" />
+    }
+
+    @Html.ActionLink("Back to List", "Index", "", new { @class = "btn btn-primary" })
 </div>

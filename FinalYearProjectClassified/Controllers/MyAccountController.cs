@@ -67,7 +67,6 @@ namespace FinalYearProjectClassified.Controllers
                 model.Description = ad.Description;
                 model.Price = ad.Price;
                 model.PostCode = ad.PostCode;
-               
             }
 
             return View(model);
@@ -94,7 +93,7 @@ namespace FinalYearProjectClassified.Controllers
                 ad.Name = model.Name;
                 ad.Description = model.Description;
                 ad.Price = model.Price;
-                ad.PostCode = model.PostCode;
+                ad.PostCode = model.PostCode.ToUpper();
 
                 this._adRepository.Save(ad);
 

@@ -26,9 +26,8 @@ namespace FinalYearProjectClassified.Models.MyAccount
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
+        [Display(Name = "Post Code")]
         public string PostCode { get; set; }
-        
-        
         
         //public string ImageFileName { get; set; }
 
