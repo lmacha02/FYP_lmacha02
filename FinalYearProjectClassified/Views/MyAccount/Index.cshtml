@@ -8,7 +8,7 @@
 
 @if (Model.Ads.Count == 0)
 {
-    <p>You have no ads.</p>
+    <h4>You have no Ads yet. Create your first Ad?</h4>
     <a href="@Url.Action("EditAd")" class="btn btn-primary">Create an Ad</a>
 }
 else
@@ -32,7 +32,7 @@ else
                     <td>@ad.Id</td>
                     <td>@ad.Name</td>
                     <td>@String.Format("{0:C2}", ad.Price)</td>
-                    <td>@ad.CreatedOn.ToLongDateString() (@ad.CreatedOn.ToShortTimeString())</td>
+                    <td>@ad.CreatedOn.ToLongDateString()</td>
                     <td><img src="@Url.Content(ad.ImageFileName)" alt="" width="75"></td>
                     
                     <td>

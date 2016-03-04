@@ -91,9 +91,10 @@ namespace FinalYearProjectClassified.Controllers
                     ad.UserId = this.CurrentUser.Id;
                 }
 
+                var imgDir = "~/Images";
                 if (file != null && file.ContentLength > 0)
                 {
-                    var imgDir = "~/Images";
+                    
 
                     var fileName = Path.GetFileName(file.FileName);
                     var filePath = Path.Combine(Server.MapPath(imgDir), fileName);
@@ -104,7 +105,8 @@ namespace FinalYearProjectClassified.Controllers
                 }
                 else
                 {
-                    ad.ImageFileName = "";
+                    //No image uploaded, display custom image
+                    ad.ImageFileName = imgDir + "/noImage.jpg";
                 }
 
 

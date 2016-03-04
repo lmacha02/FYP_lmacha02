@@ -29,3 +29,7 @@ textarea {
     position: relative;
     clear:both;
 }
+
+.panel-heading{
+    height: 300px;
+}
