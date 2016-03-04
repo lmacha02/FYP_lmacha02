@@ -21,6 +21,7 @@ else
                 <th>Price</th>
                 <th>Created on</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
 
@@ -32,6 +33,8 @@ else
                     <td>@ad.Name</td>
                     <td>@String.Format("{0:C2}", ad.Price)</td>
                     <td>@ad.CreatedOn.ToLongDateString() (@ad.CreatedOn.ToShortTimeString())</td>
+                    <td><img src="@Url.Content(ad.ImageFileName)" alt="" width="75"></td>
+                    
                     <td>
                         <a href="@Url.Action("DetailsAd", new { id = ad.Id })" class="btn btn-warning">Details</a>
                         

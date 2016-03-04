@@ -29,13 +29,13 @@ else
         <div class="col-md-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <img src="@Url.Content("~/Content/Images/test.jpg")" alt="" width="225">
+                    <img src="@Url.Content(ad.ImageFileName)" alt="" width="225">
                 </div>
-
+                
                 <div class="panel-body">
                     
                     <p>@ad.Description</p>
-                    <p>@ad.CreatedOn.ToLongDateString() (@ad.CreatedOn.ToShortTimeString())</p>
+                    <p>@ad.CreatedOn.ToLongDateString()</p>
                     <p>By: @ad.User.FirstName</p>
                     <p>@String.Format("{0:C2}", ad.Price)</p>
                 </div>

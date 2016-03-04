@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
 
 namespace FinalYearProjectClassified.Controllers
 {
@@ -74,7 +75,7 @@ namespace FinalYearProjectClassified.Controllers
 
         // POST: MyAccount/EditAd
         [HttpPost]
-        public ActionResult EditAd(EditAdViewModel model, int? id)
+        public ActionResult EditAd(EditAdViewModel model, int? id, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -90,6 +91,23 @@ namespace FinalYearProjectClassified.Controllers
                     ad.UserId = this.CurrentUser.Id;
                 }
 
+                if (file != null && file.ContentLength > 0)
+                {
+                    var imgDir = "~/Images";
+
+                    var fileName = Path.GetFileName(file.FileName);
+                    var filePath = Path.Combine(Server.MapPath(imgDir), fileName);
+                    file.SaveAs(filePath);
+
+                    fileName = Path.Combine(imgDir, fileName);
+                    ad.ImageFileName = fileName;
+                }
+                else
+                {
+                    ad.ImageFileName = "";
+                }
+
+
                 ad.Name = model.Name;
                 ad.Description = model.Description;
                 ad.Price = model.Price;
@@ -97,9 +115,14 @@ namespace FinalYearProjectClassified.Controllers
 
                 this._adRepository.Save(ad);
 
-                //return RedirectToAction("EditAd", new { id = ad.Id });
+
+                
+
                 return RedirectToAction("Index");
             }
+
+            
+
 
             return View(model);
         }

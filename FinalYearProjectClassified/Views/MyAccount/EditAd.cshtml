@@ -9,7 +9,7 @@
 <h2>@ViewBag.Title</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("EditAd", "MyAccount", FormMethod.Post, new { enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
@@ -49,6 +49,23 @@
                 @Html.ValidationMessageFor(model => model.PostCode, "", new { @class = "text-danger" })
             </div>
         </div>
+
+
+
+        <div class="form-group">
+            
+            @Html.LabelFor(model => model.ImageFileName, htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <input type="file" name="file" id="file" class=""/>                       
+            
+            <div class="col-md-10">
+               
+               
+
+            </div>
+        </div>
+
+
 
 
         <div class="form-group">

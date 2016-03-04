@@ -28,8 +28,10 @@ namespace FinalYearProjectClassified.Models.MyAccount
 
         [Display(Name = "Post Code")]
         public string PostCode { get; set; }
-        
-        //public string ImageFileName { get; set; }
+
+
+        [Display(Name = "Add an Image")]
+        public string ImageFileName { get; set; }
 
         //update this value when Ad is changed or add new field eg. EditedOn?
         //public DateTime CreatedOn { get; set; }
