@@ -18,20 +18,14 @@ namespace FinalYearProjectClassified.Controllers
         }
 
 
-        public ActionResult Index(
-            string keywords = "", 
-            string postcode = "", 
-            int sortBy = 0)
+        public ActionResult Index(string keywords = "", string postcode = "")
         {
-           var model = new Models.Home.IndexViewModel();
-            model.SortBy = (AdsOrder)sortBy;
-            model.Keywords = keywords;
-            model.PostCode = postcode;
+            var model = new Models.Home.IndexViewModel();
 
-            var ads = this._adRepository
+            model.Ads = this._adRepository
                 .GetNonFeaturedAds()
                 .Where(x =>
-                    (String.IsNullOrEmpty(keywords) ||
+                    (String.IsNullOrEmpty(keywords) || 
                     (!String.IsNullOrEmpty(keywords) &&
                             (
                                 x.Name.Contains(keywords) ||
@@ -49,27 +43,20 @@ namespace FinalYearProjectClassified.Controllers
                         )
                     )
                     )
-                );
+                )
+                .ToList();
 
-            switch (model.SortBy)
-            {
-                default:
-                case AdsOrder.MostRecent:
-                    ads = ads.OrderBy(x => x.CreatedOn);
-                    break;
-                case AdsOrder.PriceLowToHigh:
-                    ads = ads.OrderBy(x => x.Price);
-                    break;
-                case AdsOrder.PriceHighToLow:
-                    ads = ads.OrderByDescending(x => x.Price);
-                    break;
-            }
 
-            model.Ads = ads.ToList();  
+            //TEST
+            model.FilterListItems = new List<FilterListItem> {
+                new FilterListItem { Text = "Price High to Low", Value = "value 1" },
+                new FilterListItem { Text = "Price Low to High", Value = "value 2" },
+                new FilterListItem { Text = "Price High to Low", Value = "value 3" },
+                new FilterListItem { Text = "Price High to Low", Value = "value 4" }
+                };
 
             return View(model);
         }
-
 
         [HttpPost]
         public ActionResult Index(Models.Home.IndexViewModel model)
@@ -77,8 +64,7 @@ namespace FinalYearProjectClassified.Controllers
             return RedirectToAction("Index", new
             {
                 keywords = model.Keywords,
-                postcode = model.PostCode,
-                sortBy = (int)model.SortBy
+                postcode = model.PostCode
             });
         }
 

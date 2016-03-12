@@ -4,6 +4,7 @@
     ViewBag.Title = "Index";
 }
 
+
 <h2>My Ads</h2>
 
 @if (Model.Ads.Count == 0)
@@ -16,7 +17,6 @@ else
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Created on</th>
@@ -29,7 +29,6 @@ else
             @foreach (var ad in Model.Ads)
             {
                 <tr>
-                    <td>@ad.Id</td>
                     <td>@ad.Name</td>
                     <td>@String.Format("{0:C2}", ad.Price)</td>
                     <td>@ad.CreatedOn.ToLongDateString()</td>

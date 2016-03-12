@@ -5,42 +5,75 @@
     ViewBag.Title = "Home";
 }
 
+
+@section Scripts {
+    <script>
+        $(function () {
+
+            $('form select').on('change', function (e) {
+                $('form').submit();
+            });
+        });
+    </script>
+}
+
 @if (Model.Ads.Count == 0)
 {
-<div class="jumbotron">
-    <h1>Sorry..</h1>
-    <p class="lead">There are no Ads at the moment. Sign-in To create an Ad!</p>
-</div>
+    <div class="jumbotron">
+        <h1>Sorry..</h1>
+        <p class="lead">There are no Ads at the moment. Sign-in To create an Ad!</p>
+    </div>
 }
 else
 {
-
     <div class="jumbotron">
-        <p>search bar</p>
-        <p>some categories</p>
-        
+        @using (Html.BeginForm())
+        {
+            <p>
+                @Html.TextBoxFor(m => m.Keywords, new { placeholder = " Looking for..." }) 
+
+                By Postcode
+
+                @Html.TextBoxFor(m => m.PostCode, new { placeholder = " e.g. SE1 2YG " })
+
+                <button type="submit" class="btn btn-primary">Search</button>
+            
+                <br/>
+
+                Order by
+
+                @Html.EnumDropDownListFor(m => m.SortBy, 
+                    new { @class = "btn btn-default dropdown-list" })
+
+                @*@Html.DropDownList("SortBy", new SelectListItem[]
+                        {
+                            new SelectListItem {Text = "Most Recent", Value = 0},
+                            new SelectListItem {Text = "Price Low to High", Value = 1},
+                            new SelectListItem {Text = "Price High to Low", Value = 2}
+                        },
+                        new { onchange = "form.submit();", @class = "btn btn-default dropdown-list" })*@
+
+
+
+                
+            </p>
+        }
     </div>
-
-
-   
 
     foreach (var ad in Model.Ads)
     {
-        <div class="col-md-3">
+        <div class="col-md-3" id="adpanel">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <img src="@Url.Content(ad.ImageFileName)" alt="" width="225">
                 </div>
                 
                 <div class="panel-body">
-                    
                     <p>@ad.Description</p>
                     <p>@ad.CreatedOn.ToLongDateString()</p>
-                    <p>By: @ad.User.FirstName</p>
                     <p>@String.Format("{0:C2}", ad.Price)</p>
                 </div>
             </div>
         </div>
-
     }
 }
