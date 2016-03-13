@@ -35,7 +35,7 @@ namespace FinalYearProjectClassified.Controllers
         }
 
         // GET: MyAccount/Details/id
-        public ActionResult DetailsAd(int id) //does it need the "?"
+        public ActionResult DetailsAd(int id) // TODO does it need the "?"
         {
             var model = new DetailsAdViewModel();
             model.User = this.CurrentUser;
@@ -117,15 +117,8 @@ namespace FinalYearProjectClassified.Controllers
 
                 this._adRepository.Save(ad);
 
-
-                
-
                 return RedirectToAction("Index");
             }
-
-            
-
-
             return View(model);
         }
 
@@ -139,7 +132,5 @@ namespace FinalYearProjectClassified.Controllers
 
             return RedirectToAction("Index");
         }
-
-        
     }
 }

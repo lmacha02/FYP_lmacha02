@@ -9,9 +9,17 @@
 @section Scripts {
     <script>
         $(function () {
-
+            //Submits the form when select list is changed
             $('form select').on('change', function (e) {
                 $('form').submit();
+            });
+
+
+            //Creates an effect when mouse enters/leaves the Ad
+            $('.adpanel').mouseenter(function () {
+                $(this).css({ 'opacity': '.7' });
+            }).mouseleave(function () {
+                $(this).css({ 'opacity': '1' });
             });
         });
     </script>
@@ -30,50 +38,42 @@ else
         @using (Html.BeginForm())
         {
             <p>
-                @Html.TextBoxFor(m => m.Keywords, new { placeholder = " Looking for..." }) 
+                @Html.TextBoxFor(m => m.Keywords, new { placeholder = " Looking for..." })
 
                 By Postcode
 
                 @Html.TextBoxFor(m => m.PostCode, new { placeholder = " e.g. SE1 2YG " })
 
                 <button type="submit" class="btn btn-primary">Search</button>
-            
-                <br/>
+
+                <br />
 
                 Order by
 
-                @Html.EnumDropDownListFor(m => m.SortBy, 
+                @Html.EnumDropDownListFor(m => m.SortBy,
                     new { @class = "btn btn-default dropdown-list" })
-
-                @*@Html.DropDownList("SortBy", new SelectListItem[]
-                        {
-                            new SelectListItem {Text = "Most Recent", Value = 0},
-                            new SelectListItem {Text = "Price Low to High", Value = 1},
-                            new SelectListItem {Text = "Price High to Low", Value = 2}
-                        },
-                        new { onchange = "form.submit();", @class = "btn btn-default dropdown-list" })*@
-
-
-
-                
             </p>
         }
     </div>
 
+
     foreach (var ad in Model.Ads)
     {
-        <div class="col-md-3" id="adpanel">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <img src="@Url.Content(ad.ImageFileName)" alt="" width="225">
-                </div>
-                
-                <div class="panel-body">
-                    <p>@ad.Description</p>
-                    <p>@ad.CreatedOn.ToLongDateString()</p>
-                    <p>@String.Format("{0:C2}", ad.Price)</p>
+        <a href="@Url.Action("Details", "Ads", new {id = ad.Id})">
+            <div class="col-md-3 adpanel">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <img src="@Url.Content(ad.ImageFileName)" alt="" width="225">
+                    </div>
+
+                    <div class="panel-body">
+                        <p>@ad.Description</p>
+                        <p>@ad.CreatedOn.ToLongDateString()</p>
+                        <p>@String.Format("{0:C2}", ad.Price)</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </a>
     }
+
 }

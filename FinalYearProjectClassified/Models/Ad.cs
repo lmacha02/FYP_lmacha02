@@ -37,7 +37,7 @@ namespace FinalYearProjectClassified.Models
         public virtual ApplicationUser User { get; set; }
     }
 
-    //Repository with functions specific to class Ad
+    //Repository functions specific to class Ad
     public sealed class AdRepository : BaseRepository<Ad>
     {
         public AdRepository(ApplicationDbContext context) : 

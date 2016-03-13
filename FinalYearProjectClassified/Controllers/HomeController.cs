@@ -43,11 +43,11 @@ namespace FinalYearProjectClassified.Controllers
                 .Where(x =>
                     (String.IsNullOrEmpty(postcode) ||
                     (!String.IsNullOrEmpty(postcode) &&
-                        (
-                            x.PostCode.Contains(postcode) ||
-                            x.PostCode.Contains(postcode)
+                            (
+                                x.PostCode.Contains(postcode) ||
+                                x.PostCode.Contains(postcode)
+                            )
                         )
-                    )
                     )
                 );
 

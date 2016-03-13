@@ -20,5 +20,7 @@ namespace FinalYearProjectClassified.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<FinalYearProjectClassified.Models.ViewModels.Ads.DetailsViewModel> DetailsViewModels { get; set; }
     }
 }

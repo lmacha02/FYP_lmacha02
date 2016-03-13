@@ -1,0 +1,73 @@
+﻿@model FinalYearProjectClassified.Models.ViewModels.Ads.DetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DetailsViewModel</h4>
+    <hr />
+    
+    
+    <div id="detailsdata" class="col-md-8">
+        <img src="@Url.Content(Model.ImageFileName)" width="500" />
+
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PostCode)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PostCode)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ImageFileName)
+            </dt>
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedOn)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CreatedOn)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Price)
+            </dd>
+
+        </dl>
+
+
+        <p>
+
+            @Html.ActionLink("Back", "Index", "")
+        </p>
+    </div>
+</div>
+
