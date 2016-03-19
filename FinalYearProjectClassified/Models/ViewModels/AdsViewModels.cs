@@ -20,7 +20,10 @@ namespace FinalYearProjectClassified.Models.ViewModels.Ads
         //public bool IsDisabled { get; set; }
         //public DateTime? DisabledOn { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime CreatedOn { get; set; }
+
+        [DataType(DataType.Currency)]
         public decimal Price { get; set; }
 
         public ApplicationUser User { get; set; }

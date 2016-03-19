@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Configuration;
+using System.Web;
 using System.Web.Optimization;
 
 namespace FinalYearProjectClassified
@@ -8,6 +9,13 @@ namespace FinalYearProjectClassified
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bool enableOptimizations = false;
+            bool.TryParse(ConfigurationManager.AppSettings["CompressHtmlResources"], out enableOptimizations);
+            BundleTable.EnableOptimizations = enableOptimizations;
+
+
+
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -26,6 +34,16 @@ namespace FinalYearProjectClassified
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+
+
+
+
+
+            /* Ads */
+
+            bundles.Add(new ScriptBundle("~/js/app/posts/details").Include(
+                     "~/scripts/app/posts/details.js"));
         }
     }
 }

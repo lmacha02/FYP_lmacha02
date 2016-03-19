@@ -41,6 +41,8 @@ namespace FinalYearProjectClassified.Controllers
             }
 
 
+            //Display the google maps with the marker for the postcode
+
 
             return View (model);
         }
