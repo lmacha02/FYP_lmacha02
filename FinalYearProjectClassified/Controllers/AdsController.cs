@@ -31,22 +31,16 @@ namespace FinalYearProjectClassified.Controllers
                 model.Description = ad.Description;
                 model.Price = ad.Price;
                 model.PostCode = ad.PostCode;
-                model.ImageFileName = ad.ImageFileName;
                 model.CreatedOn = ad.CreatedOn;
                 model.User = ad.User;
+                model.Images = ad.Images.ToList();
             }
             else
             {
                 ViewBag.Message = "Sorry! No Ad selected..";
             }
-
-
-            //Display the google maps with the marker for the postcode
-
-
+            
             return View (model);
         }
-
-        
     }
 }

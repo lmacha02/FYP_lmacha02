@@ -18,39 +18,17 @@ namespace FinalYearProjectClassified.Controllers
         }
 
 
-        public ActionResult Index(
-            string keywords = "", 
-            string postcode = "", 
-            int sortBy = 0)
+        public ActionResult Index(string keywords = "", 
+                                string postcode = "", int sortBy = 0)
         {
-           var model = new Models.Home.IndexViewModel();
+            var model = new Models.Home.IndexViewModel();
             model.SortBy = (AdsOrder)sortBy;
             model.Keywords = keywords;
             model.PostCode = postcode;
 
-            var ads = this._adRepository
-                .GetNonFeaturedAds()
-                .Where(x =>
-                    (String.IsNullOrEmpty(keywords) ||
-                    (!String.IsNullOrEmpty(keywords) &&
-                            (
-                                x.Name.Contains(keywords) ||
-                                x.Description.Contains(keywords)
-                            )
-                        )
-                    )
-                )
-                .Where(x =>
-                    (String.IsNullOrEmpty(postcode) ||
-                    (!String.IsNullOrEmpty(postcode) &&
-                            (
-                                x.PostCode.Contains(postcode) ||
-                                x.PostCode.Contains(postcode)
-                            )
-                        )
-                    )
-                );
-
+            bool isFeatured = false;
+            var ads = this._adRepository.GetAds(keywords, postcode, isFeatured);
+                
             switch (model.SortBy)
             {
                 default:

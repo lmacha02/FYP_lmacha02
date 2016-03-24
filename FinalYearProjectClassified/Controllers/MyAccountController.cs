@@ -20,7 +20,6 @@ namespace FinalYearProjectClassified.Controllers
             this._adRepository = new AdRepository(this.Database);
         }
 
-
         // GET: MyAccount
         public ActionResult Index()
         {
@@ -35,7 +34,7 @@ namespace FinalYearProjectClassified.Controllers
         }
 
         // GET: MyAccount/Details/id
-        public ActionResult DetailsAd(int id) // TODO does it need the "?"
+        public ActionResult DetailsAd(int id)                   // TODO does it need the "?"
         {
             var model = new DetailsAdViewModel();
             model.User = this.CurrentUser;
@@ -48,8 +47,7 @@ namespace FinalYearProjectClassified.Controllers
             model.Price = ad.Price;
             model.PostCode = ad.PostCode;
             model.CreatedOn = ad.CreatedOn;
-
-
+            model.Images = ad.Images.ToList();                   // TODO : Check if its correct!
 
             return View(model);
         }
@@ -61,21 +59,21 @@ namespace FinalYearProjectClassified.Controllers
 
             if (id.HasValue)
             {
-                var ad = this._adRepository.FindById(id.Value);
+                var ad = this._adRepository.FindById(id.Value);         // TODO - Add control for editting images
 
                 model.AdId = id;
                 model.Name = ad.Name;
                 model.Description = ad.Description;
                 model.Price = ad.Price;
                 model.PostCode = ad.PostCode;
+                model.Images = ad.Images;
             }
-
             return View(model);
         }
 
         // POST: MyAccount/EditAd
         [HttpPost]
-        public ActionResult EditAd(EditAdViewModel model, int? id, HttpPostedFileBase file)
+        public ActionResult EditAd(EditAdViewModel model, int? id, IEnumerable<HttpPostedFileBase> files)
         {
             if (ModelState.IsValid)
             {
@@ -91,35 +89,50 @@ namespace FinalYearProjectClassified.Controllers
                     ad.UserId = this.CurrentUser.Id;
                 }
 
-                var imgDir = "~/Images";
-                if (file != null && file.ContentLength > 0)
-                {
-                    
-
-                    var fileName = Path.GetFileName(file.FileName);
-                    var filePath = Path.Combine(Server.MapPath(imgDir), fileName);
-                    file.SaveAs(filePath);
-
-                    fileName = Path.Combine(imgDir, fileName);
-                    ad.ImageFileName = fileName;
-                }
-                else
-                {
-                    //No image uploaded, display custom image
-                    ad.ImageFileName = imgDir + "/noImage.jpg";
-                }
-
-
                 ad.Name = model.Name;
                 ad.Description = model.Description;
                 ad.Price = model.Price;
                 ad.PostCode = model.PostCode.ToUpper();
 
-                this._adRepository.Save(ad);
+                // Images upload
+                var imgDir = "~/Images";
+                var noImgUploaded = true;
+                ad.Images = new List<Image>();
 
-                return RedirectToAction("Index");
+                foreach (var file in files.Where(file => file != null && file.ContentLength > 0))
+                {
+                    noImgUploaded = false;
+
+                    var fileName = Path.GetFileName(file.FileName);
+                    var filePath = Path.Combine(Server.MapPath(imgDir), fileName);
+                    file.SaveAs(filePath);
+                    fileName = Path.Combine(imgDir, fileName);
+                    
+                    ad.Images.Add(new Image() { FilePath = fileName });
+                }
+                if(noImgUploaded && !id.HasValue)
+                {
+                    //No image uploaded, display custom image (no image available pic)
+                    ad.Images.Add(new Image() { FilePath = imgDir + "/noImage.jpg" });
+                }
+
+                var entity = this._adRepository.Save(ad);
+
+                return RedirectToAction("EditAd");
             }
             return View(model);
+        }
+
+        public ActionResult DeleteImage(int id, int imgId)                     // TODO : finish!
+        {
+            //Delete image
+            if (imgId > 0)
+            {
+                this._adRepository.DeleteImage(imgId);
+
+                return RedirectToAction("EditAd", new{id = id});
+            }
+            return RedirectToAction("EditAd");
         }
 
         [HttpPost]
@@ -129,7 +142,6 @@ namespace FinalYearProjectClassified.Controllers
             {
                 this._adRepository.Disable(id);
             }
-
             return RedirectToAction("Index");
         }
     }

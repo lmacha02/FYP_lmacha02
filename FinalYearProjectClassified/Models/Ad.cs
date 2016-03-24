@@ -16,22 +16,20 @@ namespace FinalYearProjectClassified.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        //Add Data Annotations??
-
         public string Name { get; set; }
         public string Description { get; set; }
         public bool IsFeatured { get; set; }
         public decimal Price { get; set; }
         public string PostCode { get; set; }
-        public string ImageFileName { get; set; }
 
         public DateTime CreatedOn { get; set; }
-        public string UserId { get; set; }
-
-        // name to display to the public ??
-
+        
         public bool IsDisabled { get; set; }
         public DateTime? DisabledOn { get; set; }
+
+        public virtual List<Image> Images { get; set; }
+
+        public string UserId { get; set; }
 
         [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
@@ -47,26 +45,42 @@ namespace FinalYearProjectClassified.Models
         protected override DbSet<Ad> Entities
         {
             get { return this._context.Ads; }
+            
         }
 
-
-        //Get all Non Featured Ads              TODO: ensure only Active Ads are loaded
-        public IQueryable<Ad> GetNonFeaturedAds()
+        private DbSet<Image> Images
         {
-            return this.Find()
-                .Where(x => x.IsFeatured.Equals(false));
+            get { return this._context.Images; }
+
         }
 
-        //Get all Featured Ads                  TODO: ensure only Active Ads are loaded
-        public IQueryable<Ad> GetFeaturedAds()
+        public IQueryable<Ad> GetAds(string keywords, string postcode, bool isFeatured)
         {
             return this.Find()
-                .Where(x => x.IsFeatured.Equals(true));
+                .Where(x => x.IsFeatured.Equals(isFeatured))
+                .Where(x => x.IsDisabled.Equals(false))
+                .Where(x =>
+                    (String.IsNullOrEmpty(keywords) || (!String.IsNullOrEmpty(keywords) &&
+                            (
+                                x.Name.Contains(keywords) ||
+                                x.Description.Contains(keywords)
+                            )
+                        )
+                    )
+                )
+                .Where(x =>
+                    (String.IsNullOrEmpty(postcode) || (!String.IsNullOrEmpty(postcode) &&
+                            (
+                                x.PostCode.Contains(postcode) ||
+                                x.PostCode.Contains(postcode)
+                            )
+                        )
+                    )
+                );
         }
 
 
         // Methods Bellow for signed-in users
-
         public IQueryable<Ad> FindByUserId(string userId)
         {
             return this.Find()
@@ -91,6 +105,20 @@ namespace FinalYearProjectClassified.Models
             entity.DisabledOn = DateTime.Now;
 
             return this.Save(entity);
+        }
+
+        public string DeleteImage(int ImageId)
+        {
+            if (ImageId > 0)
+            {
+                var img = this._context.Images.Find(ImageId);
+
+                this._context.Images.Remove(img);
+                this._context.SaveChanges();
+
+                return "Image deleted";
+            }
+            return "Something went wrong!"; 
         }
     }
 }

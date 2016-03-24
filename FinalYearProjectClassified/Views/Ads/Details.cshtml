@@ -11,34 +11,42 @@
 
 }
 
-<h2>Ad Details</h2>
+<h2>Ad Details - @Model.Name</h2>
 
 <div>
     <hr />
-    
-    <div id="detailsdata" data-ad-id="@Model.PostCode" class="col-md-6 col-xs-10">
-        
-        <img src="@Url.Content(Model.ImageFileName)" width="500" class="img-responsive img-rounded" />
 
-        <dl class="dl-horizontal">
-            <dt>@Html.DisplayNameFor(model => model.Name)</dt>
-            <dd>@Html.DisplayFor(model => model.Name)</dd>
+    <div id="detailscontainer" class="col-md-6 col-xs-12">
 
-            <dt>@Html.DisplayNameFor(model => model.Description)</dt>
-            <dd>@Html.DisplayFor(model => model.Description)</dd>
+        @foreach (var image in Model.Images)
+        {
+            <div class="img-responsive">
+                <img src="@Url.Content(image.FilePath)" style="width:100%" class="img-responsive img-rounded" />
+            </div>
+        }
 
-            <dt>@Html.DisplayNameFor(model => model.PostCode)</dt>
-            <dd>@Html.DisplayFor(model => model.PostCode)</dd>
-
-            <dt>@Html.DisplayNameFor(model => model.CreatedOn)</dt>
-            <dd>@Html.DisplayFor(model => model.CreatedOn)</dd>
-
-            <dt>@Html.DisplayNameFor(model => model.Price)</dt>
-            <dd>@Html.DisplayFor(model => model.Price)</dd>
-        </dl>
     </div>
-    <div class="col-md-6 col-xs-10">
-        <div id="googleMap" class="img-responsive img-rounded"  style="width:400px; height:350px;" ></div>
+
+    <div class="col-md-6 col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <div id="detailsdata" data-ad-id="@Model.PostCode">
+                    <dl class="dl-horizontal">
+                        <dt>@Html.DisplayNameFor(model => model.Description)</dt>
+                        <dd>@Html.DisplayFor(model => model.Description)</dd>
+
+                        <dt>@Html.DisplayNameFor(model => model.CreatedOn)</dt>
+                        <dd>@Html.DisplayFor(model => model.CreatedOn)</dd>
+
+                        <dt>@Html.DisplayNameFor(model => model.Price)</dt>
+                        <dd>@Html.DisplayFor(model => model.Price)</dd>
+                    </dl>
+                    <textarea>Contact the Ad publisher!</textarea>
+                </div>
+            </div>
+        </div>
+        <div id="googleMap" class="img-responsive img-rounded" style="width:100%; height:400px;"></div>
     </div>
+
+
 </div>
-

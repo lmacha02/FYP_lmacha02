@@ -17,6 +17,8 @@ namespace FinalYearProjectClassified.Models.ViewModels.Ads
         public string PostCode { get; set; }
         public string ImageFileName { get; set; }
 
+        public List<Image> Images { get; set; }
+
         //public bool IsDisabled { get; set; }
         //public DateTime? DisabledOn { get; set; }
 
@@ -27,7 +29,5 @@ namespace FinalYearProjectClassified.Models.ViewModels.Ads
         public decimal Price { get; set; }
 
         public ApplicationUser User { get; set; }
-
-
     }
 }

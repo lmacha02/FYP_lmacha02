@@ -30,8 +30,10 @@ namespace FinalYearProjectClassified.Models.MyAccount
         public string PostCode { get; set; }
 
 
-        [Display(Name = "Add an Image")]
-        public string ImageFileName { get; set; }
+        [Display(Name = "Add Images")]
+        public List<Image> Images { get; set; }
+
+
 
         //update this value when Ad is changed or add new field eg. EditedOn?
         //public DateTime CreatedOn { get; set; }
@@ -44,15 +46,16 @@ namespace FinalYearProjectClassified.Models.MyAccount
 
         public string Name { get; set; }
         public string Description { get; set; }
-        //public bool IsFeatured { get; set; } ???
+        public bool IsFeatured { get; set; }
         public string PostCode { get; set; }
-        //public string ImageFileName { get; set; }
 
         //public bool IsDisabled { get; set; }
         //public DateTime? DisabledOn { get; set; }
 
         public DateTime CreatedOn { get; set; }
         public decimal Price { get; set; }
+
+        public List<Image> Images { get; set; }
 
         public ApplicationUser User { get; set; }
 

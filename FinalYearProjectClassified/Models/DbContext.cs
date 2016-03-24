@@ -15,12 +15,14 @@ namespace FinalYearProjectClassified.Models
 
         public DbSet<Ad> Ads { get; set; }
 
+        public DbSet<Image> Images { get; set; }
+
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<FinalYearProjectClassified.Models.ViewModels.Ads.DetailsViewModel> DetailsViewModels { get; set; }
+        public DbSet<ViewModels.Ads.DetailsViewModel> DetailsViewModels { get; set; }
     }
 }

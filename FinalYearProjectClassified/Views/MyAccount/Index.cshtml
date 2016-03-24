@@ -20,6 +20,7 @@ else
                 <th>Name</th>
                 <th>Price</th>
                 <th>Created on</th>
+                <th>Featured</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -30,11 +31,15 @@ else
             {
                 <tr>
                     <td>@ad.Name</td>
-                    <td>@String.Format("{0:C2}", ad.Price)</td>
-                    <td>@ad.CreatedOn.ToLongDateString()</td>
-                    <td><img src="@Url.Content(ad.ImageFileName)" alt="" width="75"></td>
-                    
-                    <td>
+                    <td style="width:125px;">@String.Format("{0:C2}", ad.Price)</td>
+                    <td style="width:150px;">@ad.CreatedOn.ToLongDateString()</td>
+                    <td style="width:100px;">@(ad.IsFeatured ? "Yes" : "No")</td>
+                    <td style="width:150px;">
+                        <div class="imgframemyhome img-responsive">
+                            <img src="@Url.Content(ad.Images.First().FilePath)" alt="" class="img-responsive img-rounded allimages">
+                        </div>
+                    </td>
+                    <td style="width:100px;">
                         <a href="@Url.Action("DetailsAd", new { id = ad.Id })" class="btn btn-warning">Details</a>
                         
                     </td>

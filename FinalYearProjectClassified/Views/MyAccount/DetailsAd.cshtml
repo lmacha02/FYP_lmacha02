@@ -4,61 +4,49 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Ad Details</h2>
+<h2>Your Ad Details - @Model.Name</h2>
 
+<hr/>
 <div>
-    
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Name
-        </dt>
+    <div class="col-md-6">
 
-        <dd>
-            @Model.Name
-        </dd>
+        <dl class="dl-horizontal">
+            <dt>Description</dt>
+            <dd>@Model.Description</dd>
 
-        <dt>
-            Description
-        </dt>
+            <dt>Price</dt>
+            <dd>@Model.Price</dd>
 
-        <dd>
-            @Model.Description
-        </dd>
-        
-        <dt>
-            Price
-        </dt>
+            <dt>Post Code</dt>
+            <dd>@Model.PostCode</dd>
 
-        <dd>
-            @Model.Price
-        </dd>
+            <dt>Featured</dt>
+            <dd>@(Model.IsFeatured ? "Yes" : "No")</dd>
 
-        <dt>
-            Post Code
-        </dt>
+            <dt>Created on</dt>
+            <dd>@Model.CreatedOn.ToLongDateString() (@Model.CreatedOn.ToShortTimeString())</dd>
+        </dl>
 
-        <dd>
-            @Model.PostCode
-        </dd>
+        <div class="col-md-offset-1 col-md-2">
+            <a href="@Url.Action("EditAd", new { id = Model.AdId })" class="btn btn-warning">Edit Ad</a>
+        </div>
+        <div class="col-md-2">
+            @using (Html.BeginForm("DisableAd", "MyAccount", new { id = Model.AdId }, FormMethod.Post))
+            {
+                <input type="submit" value="Disable Ad" class="btn btn-danger" onclick="return confirm('Are you sure you want to disable this ad?')" />
+            }
+        </div>
 
-        <dt>
-            Created on
-        </dt>
+    </div>
 
-        <dd>
-            @Model.CreatedOn.ToLongDateString() (@Model.CreatedOn.ToShortTimeString())
-        </dd>
-
-    </dl>
+    <div class="col-md-6">
+        @foreach (var img in Model.Images)
+        {
+            <div class="imgframemyhome img-responsive">
+                <img src="@Url.Content(img.FilePath)" alt="" class="img-responsive img-rounded allimages">
+            </div>
+        }
+    </div>
 </div>
-<div>
-    <a href="@Url.Action("EditAd", new { id = Model.AdId })" class="btn btn-warning">Edit</a>
 
-    @using (Html.BeginForm("DisableAd", "MyAccount", new { id = Model.AdId }, FormMethod.Post))
-    {
-        <input type="submit" value="Disable" class="btn btn-danger" onclick="return confirm('Are you sure you want to disable this ad?')" />
-    }
 
-    @Html.ActionLink("Back to List", "Index", "", new { @class = "btn btn-primary" })
-</div>

@@ -15,21 +15,71 @@
 */
 .dl-horizontal dt {
     white-space: normal;
+    margin-left: 0;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
 
+
+
+
+
+/* keep footer at the bottom*/
 .footer {
     
     position: relative;
     clear:both;
 }
 
-.panel-heading{
-    height: 320px;
+
+/* Home page image frame */
+.imgframehome {  
+    height: 225px;
+    width: 225px;
+    position: relative;
+}
+
+/* MyHome page image frame*/
+.imgframemyhome {  
+    height: 100px;
+    width: 100px;
+    position: relative;
+}
+
+/* Details page image frame*/
+.imgframedetails {  
+    height: 300px;
+    width: 300px;
+    position: relative;
+}
+
+/* all images */
+.allimages {  
+    max-height: 100%;  
+    max-width: 100%; 
+    width: auto;
+    height: auto;
+    position: absolute;  
+    top: 0;  
+    bottom: 0;  
+    left: 0;  
+    right: 0;  
+    margin: auto;
+}
+
+/* Make the Placeholder text in the text boxes */
+/* For IE browser */
+input:-ms-input-placeholder {
+   /* Your style here e.g. font size, color etc */
+   
+}
+
+/*For Webkit browsers (Chrome, Safari) */
+input::-webkit-input-placeholder {
+   /* Your style here e.g. font size, color etc */
+}
+
+/* For Mozilla Firefox */
+input:-moz-placeholder {
+    /* Your style here e.g. font size, color etc */
 }

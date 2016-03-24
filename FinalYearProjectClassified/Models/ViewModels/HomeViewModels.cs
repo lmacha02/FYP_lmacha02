@@ -13,6 +13,8 @@ namespace FinalYearProjectClassified.Models.Home
 
         public AdsOrder SortBy { get; set; }
 
+        public AdsCategory Category { get; set; }
+
         public List<Ad> Ads { get; set; }
     }
 }

@@ -9,11 +9,10 @@
 @section Scripts {
     <script>
         $(function () {
-            //Submits the form when select list is changed
+            //Filter "OrderBy" - Submits the form when select list is changed
             $('form select').on('change', function (e) {
                 $('form').submit();
             });
-
 
             //Creates an effect when mouse enters/leaves the Ad
             $('.panel').mouseenter(function () {
@@ -35,41 +34,34 @@
 else
 {
     <div class="jumbotron">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-inline" }))
         {
-            <p>
-                @Html.TextBoxFor(m => m.Keywords, new { placeholder = " Looking for..." })
-
-                By Postcode
-
-                @Html.TextBoxFor(m => m.PostCode, new { placeholder = " e.g. SE1 2YG " })
-
-                <button type="submit" class="btn btn-primary">Search</button>
-
-                <br />
-
-                Order by
-
-                @Html.EnumDropDownListFor(m => m.SortBy,
-                    new { @class = "btn btn-default dropdown-list" })
-            </p>
+            @Html.EnumDropDownListFor(m => m.Category, new { @class = "form-control btn btn-default dropdown-list" })
+                
+            @Html.TextBoxFor(m => m.Keywords, new { style="width: 300px", placeholder = " Looking for...", @class = "form-control"})
+                
+            @Html.TextBoxFor(m => m.PostCode, new { style = "width: 300px",placeholder = " By Postcode e.g. SE1... ", @class = "form-control"})
+                
+            @Html.EnumDropDownListFor(m => m.SortBy, new { @class = "form-control btn btn-default dropdown-list" })
+           
+            <button type="submit" class="btn btn-primary">Search</button>
         }
     </div>
-
 
     foreach (var ad in Model.Ads)
     {
         <a href="@Url.Action("Details", "Ads", new {id = ad.Id})">
-            <div class="col-md-3 adpanel">
+            <div class="col-xs-12 col-sm-4 col-md-3 adpanel">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <img src="@Url.Content(ad.ImageFileName)" alt="" width="225" class="img-responsive img-rounded">
+                        <div class="imgframehome img-responsive">
+                            <img src="@Url.Content(ad.Images.First().FilePath)" alt="" class="img-responsive img-rounded allimages">
+                        </div>
                     </div>
-
+                    
                     <div class="panel-body">
-                        <p>@ad.Description</p>
-                        <p>@ad.CreatedOn.ToLongDateString()</p>
                         <p>@String.Format("{0:C2}", ad.Price)</p>
+                        <p>@ad.CreatedOn.ToLongDateString()</p>
                     </div>
                 </div>
             </div>
